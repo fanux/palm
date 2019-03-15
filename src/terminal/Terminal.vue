@@ -1,17 +1,35 @@
 <template>
   <div class="terminal">
     <h1>{{ msg }}</h1>
-    <p>this is terrrrminal </p> 
+    <p>this is terrrrminal</p>
+     <iframe width=800 height=600 frameborder=0 scrolling=auto src="http://fist.lameleg.com:32202"></iframe>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Terminal',
+  name: "Terminal",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      html: ""
+    };
+  },
+  mounted() {
+    this.load();
+  },
+  methods: {
+    load() {
+      this.$http
+        .get("")
+        .then(function(res) {
+          this.html = res.data;
+        });
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

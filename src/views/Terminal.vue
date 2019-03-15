@@ -1,6 +1,5 @@
 <template>
   <div class="terminal">
-    <img alt="Vue logo" src="../assets/logo.png">
     <Terminal msg="Welcome to terminal"/>
   </div>
 </template>
