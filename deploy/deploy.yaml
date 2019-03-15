@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palm
+  namespace: sealyun
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: palm
+    spec:
+      containers:
+      - name: palm
+        image: lameleg/palm:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+          - containerPort: 443
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      name: palm
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: palm
+  namespace: sealyun
+spec:
+  selector:
+    name: palm
+  ports:
+  - name: http
+    protocol: TCP
+    targetPort:  80
+    port: 80
+    nodePort: 32200
+  type: NodePort
