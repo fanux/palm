@@ -1,10 +1,8 @@
 <template>
   <div class="login">
-    <h1>{{ msg }}</h1>
     <Row>
-      <Col span="8">col-8</Col>
-      <Col span="8">col-8</Col>
-      <Col span="8">
+      <Col span="8" offset="8">
+      <Card :bordered="false" class="loginCard">
         <Form ref="formInline" :model="formInline" :rules="ruleInline" class="loginForm">
           <FormItem prop="user">
             <Input type="text" v-model="formInline.user" placeholder="Username">
@@ -13,14 +11,16 @@
           </FormItem>
           <FormItem prop="password">
             <Input type="password" v-model="formInline.password" placeholder="Password">
-              <Icon type="ios-lock-outline" slot="prepend"></Icon>
+              <Icon type="ios-key" slot="prepend"></Icon>
             </Input>
           </FormItem>
           <FormItem>
-            <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
+            <Button type="primary" @click="handleSubmit('formInline')" style="width:390px;height:40px;">Signin</Button>
           </FormItem>
         </Form>
+        </Card>
       </Col>
+      <Col span="8"></Col>
     </Row>
   </div>
 </template>
@@ -78,6 +78,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.loginCard {
+  margin-top: 100px;
+  text-align: center;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -93,6 +97,6 @@ a {
   color: #42b983;
 }
 .loginForm {
-  margin-right: 120px;
+  margin:30px;
 }
 </style>

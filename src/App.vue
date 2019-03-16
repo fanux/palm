@@ -46,15 +46,27 @@
           </MenuItem>
           <MenuItem name="1-3">
             <Icon type="settings"></Icon>
-            <span><router-link to="/terminal">Terminal</router-link></span>
+            <span>
+              <router-link to="/terminal">Terminal</router-link>
+            </span>
           </MenuItem>
           <MenuItem name="1-4">
             <Icon type="settings"></Icon>
-            <router-link to="/terminal"><span>Render</span></router-link>
+            <router-link to="/terminal">
+              <span>Render</span>
+            </router-link>
           </MenuItem>
           <MenuItem name="1-5">
             <Icon type="settings"></Icon>
-            <router-link to="/terminal"><span>Pipeline</span></router-link>
+            <router-link to="/terminal">
+              <span>Pipeline</span>
+            </router-link>
+          </MenuItem>
+          <MenuItem name="1-5">
+            <Icon type="settings"></Icon>
+            <router-link to="/terminal">
+              <span>Appstore</span>
+            </router-link>
           </MenuItem>
         </Menu>
       </Sider>
@@ -74,7 +86,8 @@
                 <Icon type="ios-add"/>create
               </MenuItem>
               <MenuItem name="3">
-                <Icon type="ios-person" />login
+                <Icon type="ios-person"/>
+                <router-link to="/login">Login</router-link>
               </MenuItem>
             </Col>
           </Row>
@@ -105,7 +118,6 @@ export default {
   <div id="app">
     <div id="nav">
       <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link>
     </div>
   </div>
 
