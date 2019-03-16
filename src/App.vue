@@ -36,25 +36,52 @@
         <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
           <MenuItem name="1-1">
             <Icon type="ios-navigate"></Icon>
-            <span>Option 1</span>
+            <span>
+              <a href="https://github.com/fanux/fist">Fist</a>
+            </span>
           </MenuItem>
           <MenuItem name="1-2">
-            <Icon type="search"></Icon>
-            <span>Option 2</span>
+            <Icon type="ios-navigate"></Icon>
+            <span>Token</span>
           </MenuItem>
           <MenuItem name="1-3">
             <Icon type="settings"></Icon>
-            <span>Option 3</span>
+            <span><router-link to="/terminal">Terminal</router-link></span>
+          </MenuItem>
+          <MenuItem name="1-4">
+            <Icon type="settings"></Icon>
+            <router-link to="/terminal"><span>Render</span></router-link>
+          </MenuItem>
+          <MenuItem name="1-5">
+            <Icon type="settings"></Icon>
+            <router-link to="/terminal"><span>Pipeline</span></router-link>
           </MenuItem>
         </Menu>
       </Sider>
       <Layout>
-          <Menu mode="horizontal" :theme="theme" active-name="1">
-            <MenuItem name="1">
-              <Icon type="ios-paper"/>内容管理
-            </MenuItem>
-          </Menu>
-        <Content :style="{padding: '0 16px 16px'}"></Content>
+        <Menu mode="horizontal" :theme="theme" active-name="1">
+          <Row>
+            <Col span="21">
+              <MenuItem name="1">
+                <Icon type="ios-paper"/>terminal1
+              </MenuItem>
+              <MenuItem name="2">
+                <Icon type="ios-paper"/>terminal2
+              </MenuItem>
+            </Col>
+            <Col span="3">
+              <MenuItem name="3">
+                <Icon type="ios-add"/>create
+              </MenuItem>
+              <MenuItem name="3">
+                <Icon type="ios-person" />login
+              </MenuItem>
+            </Col>
+          </Row>
+        </Menu>
+        <Content :style="{padding: '0 16px 16px'}">
+          <router-view/>
+        </Content>
       </Layout>
     </Layout>
   </div>
@@ -64,7 +91,7 @@ export default {
   data() {
     return {
       isCollapsed: false,
-       theme: 'light'
+      theme: "light"
     };
   },
   computed: {
@@ -78,9 +105,7 @@ export default {
   <div id="app">
     <div id="nav">
       <router-link to="/about">About</router-link> |
-      <router-link to="/terminal">Terminal</router-link> |
       <router-link to="/login">Login</router-link>
     </div>
-    <router-view/>
   </div>
 

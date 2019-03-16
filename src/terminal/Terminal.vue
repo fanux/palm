@@ -1,8 +1,6 @@
 <template>
   <div class="terminal">
-    <h1>{{ msg }}</h1>
-    <p>this is terrrrminal</p>
-     <iframe width=800 height=600 frameborder=0 scrolling=auto src="http://fist.lameleg.com:32202"></iframe>
+     <iframe width=1400 height=800 frameborder=0 scrolling=auto src="http://fist.lameleg.com:32202"></iframe>
   </div>
 </template>
 
@@ -34,6 +32,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.terminal {
+  margin-top:20px;
+  margin-left:10px;
+}
 h3 {
   margin: 40px 0 0;
 }
