@@ -1,6 +1,6 @@
 <template>
   <div class="terminal">
-     <iframe width=1400 height=800 frameborder=0 scrolling=auto src="http://fist.lameleg.com:32202"></iframe>
+     <iframe width=1400 height=800 frameborder=0 scrolling=auto src="http://fist.lameleg.com:32726"></iframe>
   </div>
 </template>
 
