@@ -28,6 +28,9 @@
   vertical-align: middle;
   font-size: 22px;
 }
+svg {
+  margin-right: 8px;
+}
 </style>
 <template>
   <div class="layout">
@@ -35,37 +38,43 @@
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
         <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
           <MenuItem name="1-1">
-            <Icon type="ios-navigate"></Icon>
+            <font-awesome-icon icon="fist-raised"/>
             <span>
               <a href="https://github.com/fanux/fist">Fist</a>
             </span>
           </MenuItem>
           <MenuItem name="1-2">
-            <Icon type="ios-navigate"></Icon>
+            <font-awesome-icon icon="code"/>
             <span>Token</span>
           </MenuItem>
           <MenuItem name="1-3">
-            <Icon type="settings"></Icon>
+            <font-awesome-icon icon="terminal"/>
             <span>
               <router-link to="/terminal">Terminal</router-link>
             </span>
           </MenuItem>
           <MenuItem name="1-4">
-            <Icon type="settings"></Icon>
+            <font-awesome-icon icon="edit"/>
             <router-link to="/terminal">
               <span>Render</span>
             </router-link>
           </MenuItem>
           <MenuItem name="1-5">
-            <Icon type="settings"></Icon>
+            <font-awesome-icon icon="cogs"/>
             <router-link to="/terminal">
               <span>Pipeline</span>
             </router-link>
           </MenuItem>
-          <MenuItem name="1-5">
-            <Icon type="settings"></Icon>
+          <MenuItem name="1-6">
+            <font-awesome-icon icon="store"/>
             <router-link to="/terminal">
               <span>Appstore</span>
+            </router-link>
+          </MenuItem>
+          <MenuItem name="1-7">
+            <font-awesome-icon icon="users"/>
+            <router-link to="/terminal">
+              <span>RBAC</span>
             </router-link>
           </MenuItem>
         </Menu>
@@ -73,17 +82,19 @@
       <Layout>
         <Menu mode="horizontal" :theme="theme" active-name="1">
           <Row>
-            <Col span="21">
+            <Col span="20">
               <MenuItem name="1">
-                <Icon type="ios-paper"/>terminal1
+            <font-awesome-icon icon="terminal"/>
+                terminal1
               </MenuItem>
               <MenuItem name="2">
-                <Icon type="ios-paper"/>terminal2
+            <font-awesome-icon icon="terminal"/>
+                terminal2
               </MenuItem>
             </Col>
-            <Col span="3">
+            <Col span="4">
               <MenuItem name="3">
-                <Icon type="ios-add"/>create
+                <font-awesome-icon icon="plus"/>create
               </MenuItem>
               <MenuItem name="3">
                 <Icon type="ios-person"/>

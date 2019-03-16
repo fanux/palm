@@ -10,6 +10,9 @@ steps:
   image: fanux/vue:latest
   commands:
      - npm install
+     - npm i --save @fortawesome/fontawesome-svg-core 
+     - npm i --save @fortawesome/free-solid-svg-icons 
+     - npm i --save @fortawesome/vue-fontawesome
      - npm run build
 
 - name: publish-font
