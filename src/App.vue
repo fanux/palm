@@ -96,7 +96,7 @@ svg {
               <MenuItem name="3">
                 <font-awesome-icon icon="plus"/>create
               </MenuItem>
-              <MenuItem name="3">
+              <MenuItem name="4">
                 <Icon type="ios-person"/>
                 <router-link to="/login">Login</router-link>
               </MenuItem>
@@ -125,10 +125,3 @@ export default {
   }
 };
 </script>
-
-  <div id="app">
-    <div id="nav">
-      <router-link to="/about">About</router-link> |
-    </div>
-  </div>
-
