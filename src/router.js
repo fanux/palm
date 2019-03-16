@@ -3,20 +3,34 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Terminal from './views/Terminal.vue'
 import Login from './views/Login.vue'
+import auth from './auth'
 
 Vue.use(Router)
+
+function requireAuth (to, from, next) {
+  if (!auth.loggedIn()) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+  } else {
+    next()
+  }
+}
 
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home, 
+      beforeEnter: requireAuth 
     },
     {
       path: '/terminal',
       name: 'terminal',
-      component: Terminal
+      component: Terminal,
+      beforeEnter: requireAuth 
     },
     {
       path: '/login',
