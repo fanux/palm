@@ -83,8 +83,8 @@ export default {
         if (valid) {
           this.$http
             .post(config.data().fistRBACServer, {
-              username: this.user,
-              password: this.password
+              username: this.formInline.user,
+              password: this.formInline.password
             })
             .then(
               function(res) {
