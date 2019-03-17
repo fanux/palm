@@ -20,7 +20,11 @@
                 @click="handleSubmit('formInline')"
                 style="margin-right:10px"
               >Signin</Button>
-              <Button  style="margin-right:10px" type="primary" @click="handleSubmit('formInline')">Signup</Button>
+              <Button
+                style="margin-right:10px"
+                type="primary"
+                @click="handleSubmit('formInline')"
+              >Signup</Button>
               <Button type="primary" @click="logout('formInline')">Logout</Button>
             </FormItem>
           </Form>
@@ -33,6 +37,8 @@
 
 <script>
 import auth from "@/auth";
+import config from "@/config";
+
 export default {
   name: "Login",
   props: {
@@ -75,18 +81,29 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-          this.$Message.success("Success!");
-          this.$router.push("terminal");
-          localStorage.token = Math.random()
-            .toString(36)
-            .substring(7);
-          auth.login(this.email, this.pass, loggedIn => {
-            if (!loggedIn) {
-              this.error = true;
-            } else {
-              this.$router.replace(this.$route.query.redirect || "/");
-            }
-          });
+          this.$http
+            .post(config.data().fistRBACServer, {
+              username: this.user,
+              password: this.password
+            })
+            .then(
+              function(res) {
+                console.log("login : ",res.data)
+                if (res.data.code == 200) {
+                  localStorage.token = Math.random()
+                    .toString(36)
+                    .substring(7);
+                  auth.login(this.email, this.pass, loggedIn => {
+                    if (!loggedIn) {
+                      this.error = true;
+                    } else {
+                      this.$router.replace(this.$route.query.redirect || "/");
+                    }
+                  });
+                }
+              },
+              function(res) {}
+            );
         } else {
           this.$Message.error("Fail!");
         }
