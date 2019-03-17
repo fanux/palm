@@ -2,22 +2,28 @@
   <div class="login">
     <Row>
       <Col span="8" offset="8">
-      <Card :bordered="false" class="loginCard">
-        <Form ref="formInline" :model="formInline" :rules="ruleInline" class="loginForm">
-          <FormItem prop="user">
-            <Input type="text" v-model="formInline.user" placeholder="Username">
-              <Icon type="ios-person-outline" slot="prepend"></Icon>
-            </Input>
-          </FormItem>
-          <FormItem prop="password">
-            <Input type="password" v-model="formInline.password" placeholder="Password">
-              <Icon type="ios-key" slot="prepend"></Icon>
-            </Input>
-          </FormItem>
-          <FormItem>
-            <Button type="primary" @click="handleSubmit('formInline')" style="width:390px;height:40px;">Signin</Button>
-          </FormItem>
-        </Form>
+        <Card :bordered="false" class="loginCard">
+          <Form ref="formInline" :model="formInline" :rules="ruleInline" class="loginForm">
+            <FormItem prop="user">
+              <Input type="text" v-model="formInline.user" placeholder="Username">
+                <Icon type="ios-person-outline" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
+            <FormItem prop="password">
+              <Input type="password" v-model="formInline.password" placeholder="Password">
+                <Icon type="ios-key" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                @click="handleSubmit('formInline')"
+                style="margin-right:10px"
+              >Signin</Button>
+              <Button  style="margin-right:10px" type="primary" @click="handleSubmit('formInline')">Signup</Button>
+              <Button type="primary" @click="logout('formInline')">Logout</Button>
+            </FormItem>
+          </Form>
         </Card>
       </Col>
       <Col span="8"></Col>
@@ -26,6 +32,7 @@
 </template>
 
 <script>
+import auth from "@/auth";
 export default {
   name: "Login",
   props: {
@@ -62,11 +69,24 @@ export default {
     };
   },
   methods: {
+    logout(name) {
+      auth.logout();
+    },
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$Message.success("Success!");
-          this.$router.push('terminal')
+          this.$router.push("terminal");
+          localStorage.token = Math.random()
+            .toString(36)
+            .substring(7);
+          auth.login(this.email, this.pass, loggedIn => {
+            if (!loggedIn) {
+              this.error = true;
+            } else {
+              this.$router.replace(this.$route.query.redirect || "/");
+            }
+          });
         } else {
           this.$Message.error("Fail!");
         }
@@ -97,6 +117,6 @@ a {
   color: #42b983;
 }
 .loginForm {
-  margin:30px;
+  margin: 30px;
 }
 </style>

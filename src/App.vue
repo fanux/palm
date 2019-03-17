@@ -82,7 +82,7 @@ svg {
       <Layout>
         <Menu mode="horizontal" :theme="theme" active-name="1">
           <Row>
-            <Col span="20">
+            <Col span="22">
               <MenuItem name="1">
             <font-awesome-icon icon="terminal"/>
                 terminal1
@@ -91,11 +91,11 @@ svg {
             <font-awesome-icon icon="terminal"/>
                 terminal2
               </MenuItem>
-            </Col>
-            <Col span="4">
               <MenuItem name="3">
                 <font-awesome-icon icon="plus"/>create
               </MenuItem>
+            </Col>
+            <Col span="2">
               <MenuItem name="4">
                 <Icon type="ios-person"/>
                 <router-link to="/login">Login</router-link>
