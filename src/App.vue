@@ -83,17 +83,12 @@ svg {
         <Menu mode="horizontal" :theme="theme" active-name="1">
           <Row>
             <Col span="22">
-              <MenuItem name="1">
-            <font-awesome-icon icon="terminal"/>
-                terminal1
+              <MenuItem v-bind:name="i" v-for="(t,i) in terminals">
+                <font-awesome-icon icon="terminal"/> {{ t.user}} {{t.namespace}} 
               </MenuItem>
-              <MenuItem name="2">
-            <font-awesome-icon icon="terminal"/>
-                terminal2
-              </MenuItem>
-              <MenuItem name="3">
-                <font-awesome-icon icon="plus"/>create
-              </MenuItem>
+                <MenuItem name="3" @click.native="createTerminal">
+                  <font-awesome-icon icon="plus"/>create
+                </MenuItem>
             </Col>
             <Col span="2">
               <MenuItem name="4">
@@ -111,16 +106,34 @@ svg {
   </div>
 </template>
 <script>
+import config from "@/config";
 export default {
   data() {
     return {
       isCollapsed: false,
-      theme: "light"
+      theme: "light",
+      terminals: []
     };
   },
   computed: {
     menuitemClasses: function() {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
+    }
+  },
+  methods: {
+    createTerminal() {
+      var url = config.data().fistTerminalServer;
+      console.log("create terminal", url);
+      var t = {
+        User: "fanux",
+        UserToken: "testToken",
+        Namespace: "default"
+      };
+      this.$http.post(url, t).then(function(res) {
+        if (res.data.code == 200) {
+          this.terminals.push(res.data.data);
+        }
+      });
     }
   }
 };

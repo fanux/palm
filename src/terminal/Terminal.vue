@@ -1,6 +1,12 @@
 <template>
   <div class="terminal">
-     <iframe width=1400 height=800 frameborder=0 scrolling=auto src="http://fist.lameleg.com:32726"></iframe>
+    <iframe
+      width="1400"
+      height="800"
+      frameborder="0"
+      scrolling="auto"
+      src="http://fist.lameleg.com:32726"
+    ></iframe>
   </div>
 </template>
 
@@ -12,20 +18,11 @@ export default {
   },
   data() {
     return {
-      html: ""
     };
   },
   mounted() {
-    this.load();
   },
   methods: {
-    load() {
-      this.$http
-        .get("")
-        .then(function(res) {
-          this.html = res.data;
-        });
-    }
   }
 };
 </script>
@@ -33,8 +30,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .terminal {
-  margin-top:20px;
-  margin-left:10px;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 h3 {
   margin: 40px 0 0;
