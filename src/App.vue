@@ -132,6 +132,7 @@ export default {
       this.$http.post(url, t).then(function(res) {
         if (res.data.code == 200) {
           this.terminals.push(res.data.data);
+          this.$router.push("/terminal")
         }
       });
     }
