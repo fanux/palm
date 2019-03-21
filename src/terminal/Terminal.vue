@@ -5,7 +5,7 @@
       height="800"
       frameborder="0"
       scrolling="auto"
-      src="http://fist.lameleg.com:32726"
+      v-bind:src="url"
     ></iframe>
   </div>
 </template>
@@ -18,6 +18,7 @@ export default {
   },
   data() {
     return {
+      url:"http://fist.lameleg.com:"+this.$route.params.port
     };
   },
   mounted() {

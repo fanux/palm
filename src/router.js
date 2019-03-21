@@ -27,7 +27,7 @@ export default new Router({
       beforeEnter: requireAuth 
     },
     {
-      path: '/terminal',
+      path: '/terminal/:port',
       name: 'terminal',
       component: Terminal,
       beforeEnter: requireAuth 

@@ -84,7 +84,9 @@ svg {
           <Row>
             <Col span="22">
               <MenuItem v-bind:name="i" v-for="(t,i) in terminals">
+              <router-link v-bind:to='"/terminal/"+t.endPoint'>
                 <font-awesome-icon icon="terminal"/> {{ t.user}} {{t.namespace}} 
+</router-link>
               </MenuItem>
                 <MenuItem name="3" @click.native="createTerminal">
                   <font-awesome-icon icon="plus"/>create
@@ -132,7 +134,7 @@ export default {
       this.$http.post(url, t).then(function(res) {
         if (res.data.code == 200) {
           this.terminals.push(res.data.data);
-          this.$router.push("/terminal")
+          this.$router.push("/terminal/" + res.data.data.endPoint)
         }
       });
     }
