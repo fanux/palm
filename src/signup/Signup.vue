@@ -15,27 +15,21 @@
               </Input>
             </FormItem>
             <FormItem prop="password">
-              <Input type="password" v-model="formInline.password" placeholder="Password check">
+              <Input type="password" v-model="formInline.password_check" placeholder="Password check">
                 <Icon type="ios-key" slot="prepend"></Icon>
               </Input>
             </FormItem>
             <FormItem prop="password">
-              <Input type="text" v-model="formInline.password" placeholder="Group">
+              <Input type="text" v-model="formInline.group" placeholder="Group">
                 <Icon type="ios-people" slot="prepend"></Icon>
               </Input>
             </FormItem>
             <FormItem>
               <Button
-                type="primary"
-                @click="handleSubmit('formInline')"
-                style="margin-right:10px"
-              >Signin</Button>
-              <Button
                 style="margin-right:10px"
                 type="primary"
                 @click="handleSubmit('formInline')"
               >Signup</Button>
-              <Button type="primary" @click="logout('formInline')">Logout</Button>
             </FormItem>
           </Form>
         </Card>
@@ -58,7 +52,9 @@ export default {
     return {
       formInline: {
         user: "",
-        password: ""
+        password: "",
+        password_check:"",
+        group:""
       },
       ruleInline: {
         user: [
@@ -92,7 +88,7 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$http
-            .post(config.data().fistRBACServer, {
+            .post(config.data().fistRBACServerSignup, {
               username: this.formInline.user,
               password: this.formInline.password
             })
