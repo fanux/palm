@@ -132,7 +132,7 @@ export default {
         UserToken: "testToken",
         Namespace: "default"
       };
-      this.$http.post(url, t).then(function(res) {
+      this.$http.post(url, t,{withCredentials: true}).then(function(res) {
         if (res.data.code == 200) {
           this.terminals.push(res.data.data);
           this.$router.push("/terminal/" + res.data.data.endPoint);
