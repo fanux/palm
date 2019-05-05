@@ -16,7 +16,7 @@
         </p>
         <code>
           {
-          <br>&nbsp; "kind": "Status",
+          <br>&nbsp;"kind": "Status",
           <br>&nbsp;"apiVersion": "v1",
           <br>&nbsp;"metadata": {
           <br>&nbsp;},

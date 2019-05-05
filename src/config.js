@@ -1,9 +1,11 @@
 export default {
     data() {
+        var ingressServer = "http://fist.lameleg.com:32024/"
         return {
-            fistRBACServer: "http://fist.lameleg.com:32204/login",
-            fistTerminalServer: "http://fist.lameleg.com:32203/terminal",
-            fistAuthServerToken: "http://fist.lameleg.com:32202/token"
+            fistRBACServerLogin: ingressServer + "login",
+            fistRBACServerSignup: ingressServer + "signup",
+            fistTerminalServer: ingressServer + "terminal",
+            fistAuthServerToken: ingressServer + "token"
         }
     }
 }

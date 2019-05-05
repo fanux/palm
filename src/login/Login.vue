@@ -84,7 +84,7 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$http
-            .post(config.data().fistRBACServer, {
+            .post(config.data().fistRBACServerLogin, {
               username: this.formInline.user,
               password: this.formInline.password
             })
