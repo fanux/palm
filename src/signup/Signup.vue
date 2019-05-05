@@ -1,9 +1,9 @@
 <template>
-  <div class="login">
+  <div class="signup">
     <Row>
       <Col span="8" offset="8">
-        <Card :bordered="false" class="loginCard">
-          <Form ref="formInline" :model="formInline" :rules="ruleInline" class="loginForm">
+        <Card :bordered="false" class="signupCard">
+          <Form ref="formInline" :model="formInline" :rules="ruleInline" class="signupForm">
             <FormItem prop="user">
               <Input type="text" v-model="formInline.user" placeholder="Username">
                 <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -14,20 +14,22 @@
                 <Icon type="ios-key" slot="prepend"></Icon>
               </Input>
             </FormItem>
+            <FormItem prop="password">
+              <Input type="password" v-model="formInline.password_check" placeholder="Password check">
+                <Icon type="ios-key" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
+            <FormItem prop="password">
+              <Input type="text" v-model="formInline.group" placeholder="Group">
+                <Icon type="ios-people" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
             <FormItem>
               <Button
+                style="margin-right:10px"
                 type="primary"
                 @click="handleSubmit('formInline')"
-                style="margin-right:10px"
-              >Signin</Button>
-
-                <router-link to="/signup">
-              <Button
-                style="margin-right:10px"
-                type="primary"
               >Signup</Button>
-                </router-link>
-              <Button type="primary" @click="logout('formInline')">Logout</Button>
             </FormItem>
           </Form>
         </Card>
@@ -42,7 +44,7 @@ import auth from "@/auth";
 import config from "@/config";
 
 export default {
-  name: "Login",
+  name: "Signup",
   props: {
     msg: String
   },
@@ -50,7 +52,9 @@ export default {
     return {
       formInline: {
         user: "",
-        password: ""
+        password: "",
+        password_check:"",
+        group:""
       },
       ruleInline: {
         user: [
@@ -84,18 +88,18 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$http
-            .post(config.data().fistRBACServerLogin, {
+            .post(config.data().fistRBACServerSignup, {
               username: this.formInline.user,
               password: this.formInline.password
             })
             .then(
               function(res) {
-                console.log("login : ",res.data)
+                console.log("signup : ",res.data)
                 if (res.data.code == 200) {
                   localStorage.token = Math.random()
                     .toString(36)
                     .substring(7);
-                  auth.login(this.email, this.pass, loggedIn => {
+                  auth.signup(this.email, this.pass, loggedIn => {
                     if (!loggedIn) {
                       this.error = true;
                     } else {
@@ -117,7 +121,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.loginCard {
+.signupCard {
   margin-top: 100px;
   text-align: center;
 }
@@ -135,7 +139,7 @@ li {
 a {
   color: #42b983;
 }
-.loginForm {
+.signupForm {
   margin: 30px;
 }
 </style>
