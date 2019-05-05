@@ -55,7 +55,7 @@ svg {
           </MenuItem>
           <MenuItem name="1-4">
             <font-awesome-icon icon="edit"/>
-            <router-link to="/terminal">
+            <router-link to="/render">
               <span>Render</span>
             </router-link>
           </MenuItem>
