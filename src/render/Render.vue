@@ -2,8 +2,8 @@
 import { METHODS } from 'http';
 import { METHODS } from 'http';
     <Row>
-        <Col span="5">base</Col>
-        <Col span="12">
+        <Col span="3">base</Col>
+        <Col span="16">
             <Row>
                 <Divider orientation="left" >app meta</Divider>
             </Row>
@@ -12,7 +12,7 @@ import { METHODS } from 'http';
                     <div class="render">
                         <Form :model="appMeta" label-position="left" :label-width="100">
                             <FormItem label="appName" >
-                                <Input v-model="appMeta.appName" class="inputShort"></Input>说明：1-20个字符（英文小写、数字、-），不能以数字开头。
+                                <Input v-model="appMeta.appName" class="inputShort"></Input>
                             </FormItem>
                             <FormItem label="namespace" >
                                 <Input v-model="appMeta.namespace" class="inputShort"></Input>
@@ -25,12 +25,17 @@ import { METHODS } from 'http';
                                         :prop="'items.' + index + '.value'"
                                         :rules="{required: true, message: 'Item ' + item.index +' can not be empty', trigger: 'blur'}">
                                     <Row>
-                                        <Col span="10">
-                                            <Input type="text" v-model="item.value" class="inputShorter" placeholder="Enter something..."></Input>
+                                        <Col span="8">
+                                            <Input type="text" v-model="item.key" class="inputShorter" placeholder="key"></Input>
                                         </Col>
-                                        <Col span="4" offset="1">
+                                        <Col span="2"></Col>
+                                        <Col span="8">
+                                            <Input type="text" v-model="item.value" class="inputShorter" placeholder="value"></Input>
+                                        </Col>
+                                        <Col span="2" offset="1">
                                             <Button @click="handleRemove(index)">Delete</Button>
                                         </Col>
+                                        <Col span="4"></Col>
                                     </Row>
                                 </FormItem>
                                 <FormItem>
@@ -42,8 +47,14 @@ import { METHODS } from 'http';
                                 </FormItem>
                             </FormItem>
                             <FormItem label="annotations">
+                                    <Col span="5">
                                     <Input v-model="appMeta.annotations" placeholder="key" class="inputShorter"  />
+                                    </Col>
+                                    <Col span="2"></Col>
+                                    <Col span="5">
                                     <Input v-model="appMeta.annotations" placeholder="value" class="inputShorter" />
+                                    </Col>
+                                    <Col span="8"></Col>
                             </FormItem>
                         </Form>
                     </div>
@@ -95,9 +106,9 @@ import { METHODS } from 'http';
                         </Form>
                     </div>
                 </Col>
-                <Col span="4">
-                    <div style="text-align:center">
-                    <Button type="primary" class="button">>></Button>              
+                <Col span="4" >
+                    <div class="center" style="text-align:center">
+                    <Button type="primary" class="button button-center">>></Button>              
                     </div>
                 </Col>
                 <Col span="10">
@@ -106,7 +117,7 @@ import { METHODS } from 'http';
                 </Col>
             </Row>
         </Col>
-        <Col span="5"></Col>
+        <Col span="3"></Col>
     </Row>
 </template>
 <script>
@@ -119,7 +130,8 @@ import { METHODS } from 'http';
                     namespace: '',
                     labels: [
                         {
-                            value: '',
+                            key:'',
+                            value:'',
                             index: 1,
                             status: 1
                         }
@@ -176,6 +188,14 @@ import { METHODS } from 'http';
 }
 .input {
     margin: 100px;
+}
+.center {
+    height: 500px;
+}
+.button-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
 .button
 {
