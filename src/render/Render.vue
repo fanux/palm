@@ -25,36 +25,63 @@ import { METHODS } from 'http';
                                         :prop="'items.' + index + '.value'"
                                         :rules="{required: true, message: 'Item ' + item.index +' can not be empty', trigger: 'blur'}">
                                     <Row>
-                                        <Col span="8">
+                                        <div style="width:10%;">
                                             <Input type="text" v-model="item.key" class="inputShorter" placeholder="key"></Input>
-                                        </Col>
-                                        <Col span="2"></Col>
-                                        <Col span="8">
+                                        </div>
+                                        <div style="width:1%;"></div>
+                                        <div style="width:10%;">
                                             <Input type="text" v-model="item.value" class="inputShorter" placeholder="value"></Input>
-                                        </Col>
-                                        <Col span="2" offset="1">
-                                            <Button @click="handleRemove(index)">Delete</Button>
-                                        </Col>
-                                        <Col span="4"></Col>
+                                        </div>
+                                        <div style="width:10%;">
+                                            <Button @click="handleRemoveIndex(index)">Delete</Button>
+                                        </div>
+                                        <div span="4"></div>
                                     </Row>
                                 </FormItem>
                                 <FormItem>
                                     <Row>
                                         <Col span="12">
-                                            <Button type="dashed" long @click="handleAdd" icon="md-add">Add item</Button>
+                                            <Button type="dashed" long @click="handleAddIndex" icon="md-add">Add item</Button>
                                         </Col>
                                     </Row>
                                 </FormItem>
                             </FormItem>
                             <FormItem label="annotations">
-                                    <Col span="5">
+                                <FormItem
+                                        v-for="(item, index) in appMeta.annotations"
+                                        v-if="item.status"
+                                        :key="index"
+                                        :prop="'items.' + index + '.value'"
+                                        :rules="{required: true, message: 'Item ' + item.index +' can not be empty', trigger: 'blur'}">
+                                    <Row>
+                                        <div style="width:10%;">
+                                            <Input type="text" v-model="item.key" class="inputShorter" placeholder="key"></Input>
+                                        </div>
+                                        <div style="width:1%;"></div>
+                                        <div style="width:10%;">
+                                            <Input type="text" v-model="item.value" class="inputShorter" placeholder="value"></Input>
+                                        </div>
+                                        <div style="width:10%;">
+                                            <Button @click="handleRemoveAnnotation(index)">Delete</Button>
+                                        </div>
+                                        <div span="4"></div>
+                                    </Row>
+                                </FormItem>
+                                <FormItem>
+                                    <Row>
+                                        <Col span="12">
+                                            <Button type="dashed" long @click="handleAddAnnotation" icon="md-add">Add item</Button>
+                                        </Col>
+                                    </Row>
+                                </FormItem>
+                                    <!-- <Col span="3">
                                     <Input v-model="appMeta.annotations" placeholder="key" class="inputShorter"  />
                                     </Col>
                                     <Col span="2"></Col>
-                                    <Col span="5">
+                                    <Col span="3">
                                     <Input v-model="appMeta.annotations" placeholder="value" class="inputShorter" />
                                     </Col>
-                                    <Col span="8"></Col>
+                                    <Col span="8"></Col> -->
                             </FormItem>
                         </Form>
                     </div>
@@ -66,39 +93,48 @@ import { METHODS } from 'http';
             <Row>
                 <Col span="10">
                     <div class="render">
-                        <Form label-position="left" :label-width="100">                            
+                        <Form label-position="left" :label-width="100">
+                            <FormItem label="replicas">
+                                <Input v-model="appDetail.replicas"></Input>
+                            </FormItem>                          
                             <FormItem label="imageName">
-                                <Input v-model="imageName"></Input>
+                                <Input v-model="appDetail.imageName"></Input>
+                            </FormItem>
+                            <FormItem label="imagePullPolicy">
+                                <Input v-model="appDetail.imagePullPolicy"></Input>
                             </FormItem>
                             <FormItem label="command">
-                                <Input v-model="command"></Input>
+                                <Input v-model="appDetail.command"></Input>
+                            </FormItem>
+                            <FormItem label="port">
+                                <Input v-model="appDetail.port"></Input>
                             </FormItem>
                             <FormItem label="resource">
                                 <FormItem label="request">
                                     <div style="margin-top: 15px;">
-                                    <Input v-model="resource.requestCPU" type="text"></Input>
+                                    <Input v-model="appDetail.resource.requestCPU" type="text"></Input>
                                     <span class="span" slot="append">C</span>
                                     </div>
                                     <div style="margin-top: 15px;">
-                                    <Input v-model="resource.requestMEM"></Input>
+                                    <Input v-model="appDetail.resource.requestMEM"></Input>
                                     <span class="span" slot="append">G</span>
                                     </div>
                                     <div style="margin-top: 15px;">
-                                    <Input v-model="resource.requestDISK"></Input>
+                                    <Input v-model="appDetail.resource.requestDISK"></Input>
                                     <span class="span" slot="append">G</span>
                                     </div>
                                 </FormItem>
                                 <FormItem label="limit">
                                     <div style="margin-top: 15px;">
-                                    <Input v-model="resource.limitCPU"></Input>
+                                    <Input v-model="appDetail.resource.limitCPU"></Input>
                                     <span class="span" slot="append">C</span>
                                     </div>
                                     <div style="margin-top: 15px;">
-                                    <Input v-model="resource.limitMEM"></Input>
+                                    <Input v-model="appDetail.resource.limitMEM"></Input>
                                     <span class="span" slot="append">G</span>
                                     </div>
                                     <div style="margin-top: 15px;">
-                                    <Input v-model="resource.limitDISK"></Input>
+                                    <Input v-model="appDetail.resource.limitDISK"></Input>
                                     <span class="span" slot="append">G</span>
                                     </div>
                                 </FormItem>
@@ -108,7 +144,7 @@ import { METHODS } from 'http';
                 </Col>
                 <Col span="4" >
                     <div class="center" style="text-align:center">
-                    <Button type="primary" class="button button-center">>></Button>              
+                    <Button type="primary" @click="handleRenderAppYaml" class="button button-center">>></Button>              
                     </div>
                 </Col>
                 <Col span="10">
@@ -116,9 +152,18 @@ import { METHODS } from 'http';
                     <Input v-model="renderYaml" type="textarea" :autosize="{minRows: 20,}" placeholder="deploy.yaml..."/>
                 </Col>
             </Row>
+            <Row>
+                <div>
+                    <Button type="primary" @click="handleCreateApp" class="button-opr button-right2">create</Button>                    
+                </div>
+                <div>
+                    <Button type="primary" @click="handleUpdateApp" class="button-opr button-right1">update</Button>
+                </div>
+            </Row>
         </Col>
         <Col span="3"></Col>
-    </Row>
+    </Row>   
+    
 </template>
 <script>
     export default {
@@ -137,22 +182,36 @@ import { METHODS } from 'http';
                         }
                     ],
                     annotations: [
+                        {
+                            key:'',
+                            value:'',
+                            index: 1,
+                            status: 1
+                        }
                     ],
                 },
-                imageName: '',
-                resource:{
-                    requestCPU:'',
-                    requestMEM:'',
-                    requestDISK:'',
-                    limitCPU:'',
-                    limitMEM:'',
-                    limitDISK:'',
+                appDetail: {
+                    imageName: '',
+                    imagePullPolicy: '',
+                    command: '',
+                    replicas: '',
+                    port: '',
+                    resource:{
+                        requestCPU:'',
+                        requestMEM:'',
+                        requestDISK:'',
+                        limitCPU:'',
+                        limitMEM:'',
+                        limitDISK:'',
+                    },
                 },
+               
                 renderYaml:'',
             }
         },
         methods: {
-            handleAdd () {
+
+            handleAddIndex () {
                 this.index++;
                 this.appMeta.labels.push({
                     value: '',
@@ -160,8 +219,86 @@ import { METHODS } from 'http';
                     status: 1
                 });
             },
-            handleRemove (index) {
+            handleAddAnnotation () {
+                this.index++;
+                this.appMeta.annotations.push({
+                    value: '',
+                    index: this.index,
+                    status: 1
+                });
+            },
+            handleRemoveIndex (index) {
                 this.appMeta.labels[index].status = 0;
+            },
+            handleRemoveAnnotation (annotation) {
+                this.appMeta.annotations[annotation].status = 0;
+            },
+            handleRenderAppYaml () {
+                //调用fist/render模块
+                // 传参
+               // var url_render = "http://172.31.81.85:8080/tempaltes?type=text";
+                //console.log(url);
+                
+                // var options= {
+
+                // }
+
+                this.$http({
+                    // url : 'http://template.185-sealyuntty.svc.hfb.ipaas.cn::8080/templates?type=text',
+                    url : 'http://172.31.81.85:8080/templates?type=text',
+                    method : 'POST',
+                    body: [
+                        {
+                        "name":"Deployment",  
+                        "value": {                       
+                            "Name": this.appMeta.appName,
+                            "Image": this.appMeta.imageName,
+                            "Replicas": this.appDetail.replicas,
+                            "Namespace": this.appMeta.namespace ,
+                            "Command": this.appDetail.command,
+                            "ImagePolicy": this.appDetail.imagePullPolicy,
+                            "Port": this.appDetail.port,
+                            }
+                        },
+                    ],
+                    
+                    // {
+                    //     'name':'Deployment',
+                    //     'value': {
+                    //         'Name' : 'fist',
+                    //         'Image' : 'sealyun/fist',
+                    //         'Replicas' : 3,
+                    //         'Namespace': 'sealyun',
+                    //         'Command': '["./fist"]',
+                    //         'ImagePolicy': 'IfnotPresent',
+                    //         'Port': 9090,
+                    //     }
+                    // },
+                    Headers : {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(
+                    function(res) {
+                        console.log("ok")
+                        console.log(res.data);
+                        console.log(res.code)
+                        
+                        this.renderYaml = res.data;
+                      
+                    },
+                    function(res) {
+                        console.log("fetch token failed");
+                    }
+                );
+
+                //解析
+
+            },
+            handleCreateApp () {
+                //调用k8s api 
+            },
+            handleUpdateApp () {
+                // 调用k8s api
             }
        }
     }
@@ -199,14 +336,37 @@ import { METHODS } from 'http';
 }
 .button
 {
- font-size:12px;
+ font-size:14px;
  text-align:center;
  padding:0px;
  vertical-align:middle ;
  line-height:22px;
  margin:0px; 
- Height:26px;
- Width:26px;
+ Height: 36px;
+ Width: 36px;
+}
+
+.button-opr
+{
+ font-size:15px;
+ text-align:center;
+ padding:0px;
+ vertical-align:middle ;
+ line-height:22px;
+ margin:0px; 
+ Height:30px;
+ Width:60px;
+}
+.button-right1 {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+}
+
+.button-right2 {
+    position: absolute;
+    top: 50%;
+    right: 15%;
 }
 .line
 {
