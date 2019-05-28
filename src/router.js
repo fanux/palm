@@ -5,6 +5,7 @@ import Terminal from './views/Terminal.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import auth from './auth'
+import Render from './views/Render.vue'
 
 Vue.use(Router)
 
@@ -32,6 +33,12 @@ export default new Router({
       name: 'terminal',
       component: Terminal,
       beforeEnter: requireAuth 
+    },
+    {
+      path: '/render',
+      name: 'render',
+      component: Render,
+ //     beforeEnter: requireAuth 
     },
     {
       path: '/login',
